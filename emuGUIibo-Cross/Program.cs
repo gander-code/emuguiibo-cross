@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Logging.Serilog;
 using emuGUIibo_Cross.ViewModels;
 using emuGUIibo_Cross.Views;
+using emuGUIibo_Cross.Services;
 
 namespace emuGUIibo_Cross
 {
@@ -24,9 +25,10 @@ namespace emuGUIibo_Cross
         // container, etc.
         private static void AppMain(Application app, string[] args)
         {
+            AmiiboAPI api = new AmiiboAPI();
             var window = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = new MainWindowViewModel(api),
             };
 
             app.Run(window);

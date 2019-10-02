@@ -9,31 +9,20 @@ namespace emuGUIibo_Cross.Services
 {
     public class AmiiboAPI
     {
-        private static readonly string AMIIBO_API_URL = "https://www.amiiboapi.com/api/amiibo/";
-        public static IEnumerable<string> Series
-        {
-            get { return Amiibos != null ? Amiibos.Select(a => a.SeriesName).Distinct() : new List<string>(); }
-        }
-        private static List<Amiibo> _amiibos = new List<Amiibo>();
-        public static IEnumerable<Amiibo> Amiibos {
-            get
-            {
-                if (_amiibos.Count == 0) _amiibos = GetAllAmiibos();
-                return _amiibos;
-            }
-        }
+        private readonly string AMIIBO_API_URL = "https://www.amiiboapi.com/api/amiibo/";
+        public List<string> Series = new List<string>();
+        public List<Amiibo> AllAmiibos = new List<Amiibo>();
 
-        private static List<Amiibo> GetAllAmiibos()
+        public void LoadAllAmiibos()
         {
-            var newAmiiboList = new List<Amiibo>();
             WebClient client = new WebClient();
             try
             {
                 JObject json = JObject.Parse(client.DownloadString(AMIIBO_API_URL));
-                _amiibos.Clear();
+                AllAmiibos.Clear();
                 foreach (JToken amiibo in json["amiibo"])
                 {
-                    newAmiiboList.Add(new Amiibo
+                    AllAmiibos.Add(new Amiibo
                     {
                         AmiiboName = amiibo["name"].ToString(),
                         SeriesName = amiibo["amiiboSeries"].ToString(),
@@ -42,14 +31,17 @@ namespace emuGUIibo_Cross.Services
                         AmiiboId = amiibo["head"].ToString() + amiibo["tail"].ToString()
                     });
                 }
-            } catch (Exception ex)
+
+                Series = AllAmiibos.AsQueryable().Select(amiibo => amiibo.SeriesName.ToString()).Distinct().ToList();
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            } finally
-            {
-                if (client != null) client.Dispose();
             }
-            return newAmiiboList;
-        } 
+            finally
+            {
+                client?.Dispose();
+            }
+        }
     }
 }

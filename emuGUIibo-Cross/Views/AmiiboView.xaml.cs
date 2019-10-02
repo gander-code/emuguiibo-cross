@@ -4,16 +4,16 @@ using Avalonia.Markup.Xaml;
 
 namespace emuGUIibo_Cross.Views
 {
-  public class AmiiboView : UserControl
-  {
-    public AmiiboView()
+    public class AmiiboView : UserControl
     {
-      InitializeComponent();
-    }
+        public AmiiboView()
+        {
+            InitializeComponent();
+        }
 
-    private void InitializeComponent()
-    {
-      AvaloniaXamlLoader.Load(this);
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
     }
-  }
 }

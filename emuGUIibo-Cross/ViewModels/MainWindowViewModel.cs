@@ -8,10 +8,10 @@ namespace emuGUIibo_Cross.ViewModels
 
     public class MainWindowViewModel : ViewModelBase
     {
-        public AmiiboViewModel AmiiboCollection { get; }
-        public MainWindowViewModel()
+        public AmiiboViewModel AmiiboVM { get; }
+        public MainWindowViewModel(AmiiboAPI api)
         {
-            AmiiboCollection = new AmiiboViewModel(AmiiboAPI.Amiibos, AmiiboAPI.Series);
+            AmiiboVM = new AmiiboViewModel(api);
         }
     }
 }

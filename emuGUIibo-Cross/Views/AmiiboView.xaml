@@ -6,51 +6,11 @@
   xmlns:ge="clr-namespace:GridExtra.Avalonia;assembly=GridExtra.Avalonia"
   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" 
   x:Class="emuGUIibo_Cross.Views.AmiiboView">
-  <Grid>
-    <Grid.Resources>
-      <Style Selector="Border.Common">
-        <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Background" Value="LightGray" />
-        <Setter Property="Height" Value="60" />
-      </Style>
-      <Style Selector="Border.Header" >
-        <Setter Property="ge:ResponsiveGrid.XS" Value="12" />
-      </Style>
-      <Style Selector="Border.Section">
-        <Setter Property="ge:ResponsiveGrid.XS" Value="6" />
-        <Setter Property="ge:ResponsiveGrid.SM" Value="4" />
-      </Style>
-      <Style Selector="Border.Footer">
-        <Setter Property="ge:ResponsiveGrid.XS" Value="12" />
-      </Style>
-    </Grid.Resources>
-    <ge:ResponsiveGrid>
-      <Border Classes="Common Header" />
-      <Border Classes="Common Section" />
-      <Border Classes="Common Section" />
-      <Border Classes="Common Section" />
-      <Border Classes="Common Footer" />
-    </ge:ResponsiveGrid>
-  </Grid>
-  <!--<Grid ColumnDefinitions="250,250,1.5*" RowDefinitions="Auto,Auto" Margin="4">
-    <ListBox Margin="10" Items="{Binding Series}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-          <Border CornerRadius="4" Padding="4">
-            <TextBlock Text="{Binding}"/>
-          </Border>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
-    <ListBox Margin="10" Items="{Binding Amiibos}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-          <Border CornerRadius="4" Padding="4">
-            <TextBlock Text="{Binding AmiiboName}"/>
-          </Border>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
-  </Grid>-->
+  <StackPanel DataContext="{Binding AmiiboVM}" Orientation="Vertical">
+    <StackPanel Orientation="Horizontal" Height="450" Width="500">
+      <ListBox SelectionMode="Single" Items="{Binding Series}" x:Name="seriesListBox" Width="230" Margin="10" />
+      
+      <ListBox SelectionMode="Single" Items="{Binding Amiibos}" x:Name="amiiboListBox" Width="230" Margin="10" />
+    </StackPanel>
+  </StackPanel>
 </UserControl>
